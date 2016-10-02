@@ -13,47 +13,44 @@
   </script>
 <![endif]-->
     <link rel="stylesheet" href="css/stylesheet.css" />
-
-<script type="text/javascript">
-
+    <script type="text/javascript">
     // anon function executes once a state change is registered (imgIDArray)
     // for each element in the array
     function queryImgURLs(element, index, array) {
         // if the state change is a full response of the request
         xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                 // and if no errors:
                 if (xmlhttp.status == 200) {
-                // parse hmlresponse.text into JSON response
-                var JSONUrlResponse = JSON.parse(xmlhttp.responseText);
-                // parse through img size URLs of the JSON rcvd
-                var JSONImgSizes = JSONUrlResponse.sizes.size
-                // *** get back JSON
-                // *** walk through with JSON.sizes which contains an array of 7 objects
-                // for each img size obj: extract the URL for sm & md
+                    // parse hmlresponse.text into JSON response
+                    var JSONUrlResponse = JSON.parse(xmlhttp.responseText);
+                    // parse through img size URLs of the JSON rcvd
+                    var JSONImgSizes = JSONUrlResponse.sizes.size
+                    // *** get back JSON
+                    // *** walk through with JSON.sizes which contains an array of 7 objects
+                    // for each img size obj: extract the URL for sm & md
                     for (i = 0; i < JSONImgSizes.length, i++) {
-                    // *** JSON.sizes.size[0].source
+                        // *** JSON.sizes.size[0].source
                         var imgSmSizeURL = JSONImgSizes.sizes.size[0].source;
-                    // *** JSON.sizes.size[sizes.length -1].source
-                        var imgMdSizeURL = JSONImgSizes.sizes.size[sizes.length -1].source;
-                }
+                        // *** JSON.sizes.size[sizes.length -1].source
+                        var imgMdSizeURL = JSONImgSizes.sizes.size[sizes.length - 1].source;
+                    }
                 // *** given these two lengths: send small to img tag within container
                 // *** pass larger as div data attribute attached to container
+                }
+                // to do if errors:
+                else if (xmlhttp.status == 400) {
+                    alert('Oops!: Error 400');
+                } else {
+                    alert('Hmm, something other than 200 was returned');
+                }
             }
-               // to do if errors:
-               else if (xmlhttp.status == 400) {
-                  alert('Oops!: Error 400');
-               }
-               else {
-                   alert('Hmm, something other than 200 was returned');
-               }
-            }
-        };          
-    // pass each img id to getSize query for img URLs by size
-    APIUrlRequest = "https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=0d41bb353ee154a459eeb3dc97854647&photo_id=" + element + "&format=json&nojsoncallback=1&auth_token=72157671220547264-7321f6da451d24e9&api_sig=b667f15c941763efdc2ccb94115ed55f"
-    // feed API response to parsing function once recvd
-    xmlhttp.open("GET", APIUrlRequest, true);
-    xmlhttp.send();
+        };
+        // pass each img id to getSize query for img URLs by size
+        APIUrlRequest = "https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=0d41bb353ee154a459eeb3dc97854647&photo_id=" + element + "&format=json&nojsoncallback=1&auth_token=72157671220547264-7321f6da451d24e9&api_sig=b667f15c941763efdc2ccb94115ed55f"
+        // feed API response to parsing function once recvd
+        xmlhttp.open("GET", APIUrlRequest, true);
+        xmlhttp.send();
     }
 
     // request gallery images from Flickr API
@@ -63,16 +60,16 @@
         // anon function executes once a state change is registered (API response)
         xmlhttp.onreadystatechange = function() {
             // if the state change is a full response of the request
-            if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                 // and if no errors:
                 if (xmlhttp.status == 200) {
                     // this could be factored into a  function:
-                // create empty array to hold img ids
-                var imgIDArray = [];
-                // parse through JSON rcvd
-                var JSONIdResponse = JSON.parse(xmlhttp.responseText);
-                // provides list of photo objects (w ID) from the JSON
-                var JSONImageArray = JSONIdResponse.photos.photo
+                    // create empty array to hold img ids
+                    var imgIDArray = [];
+                    // parse through JSON rcvd
+                    var JSONIdResponse = JSON.parse(xmlhttp.responseText);
+                    // provides list of photo objects (w ID) from the JSON
+                    var JSONImageArray = JSONIdResponse.photos.photo
                     // for each img obj: pull out the ID and add to new array
                     for (i = 0; i < JSONImageArray.length, i++) {
                         var ImgID = JSONImageArray[i].id;
@@ -80,14 +77,13 @@
                     }
                     // once data is added to  imgIDArray - execute query for img IDs
                     imgIDArray.foreach(queryImgURLs);
-               }
-               // to do if errors:
-               else if (xmlhttp.status == 400) {
-                  alert('Oops!: Error 400');
-               }
-               else {
-                   alert('Hmm, something other than 200 was returned');
-               }
+                }
+                // to do if errors:
+                else if (xmlhttp.status == 400) {
+                    alert('Oops!: Error 400');
+                } else {
+                    alert('Hmm, something other than 200 was returned');
+                }
             }
         };
         // feed API response to anan function once recvd
@@ -108,7 +104,6 @@
         lightBxBgnd.style.display = "none";
         lightBx.style.display = "none";
     }
-
     </script>
 </head>
 
@@ -116,7 +111,6 @@
     <header class="colorIT">
         <h1>Color Disruption</h1>
     </header>
-
     <section>
         <h1>Inspired By Color Disruption</h1>
         <hr>
