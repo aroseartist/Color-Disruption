@@ -1,0 +1,8 @@
+*.pyc
+env/
+secrets.sh
+.DS_Store
+*._
+.TemporaryItems
+.Trashes
+.vagrant/

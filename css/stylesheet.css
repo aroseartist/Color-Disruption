@@ -1,0 +1,53 @@
+
+body {
+   background-color: #060C10;
+   color: #FFF;
+   font-family: Arial, Calibri, Helvetica, sans-serif;
+}
+
+h1 {
+   display: block;
+   color: #AE8394;
+}
+
+a {
+   color: #FFF;
+}
+
+.searchIT {
+   display: block;
+   max-width: 1024px;
+   margin: 0 auto;
+}
+
+.img-search {
+   margin: 0.4em 0;
+   text-align: center;
+}
+
+.img-search #query {
+   padding: 0.1em;
+}
+
+.img-search input {
+   color: #000;
+}
+
+#ltBoxBgnd {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+    background-color: #000;
+}
+
+#ltBox {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    display: none;
+}
+
