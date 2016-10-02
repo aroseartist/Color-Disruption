@@ -28,17 +28,17 @@
                 var JSONUrlResponse = JSON.parse(xmlhttp.responseText);
                 // parse through img size URLs of the JSON rcvd
                 var JSONImgSizes = JSONUrlResponse.sizes.size
-              *  // get back JSON
-              *  // walk through with JSON.sizes which contains an array of 7 objects
+                // *** get back JSON
+                // *** walk through with JSON.sizes which contains an array of 7 objects
                 // for each img size obj: extract the URL for sm & md
                     for (i = 0; i < JSONImgSizes.length, i++) {
-                  *  // JSON.sizes.size[0].source
+                    // *** JSON.sizes.size[0].source
                         var imgSmSizeURL = JSONImgSizes.sizes.size[0].source;
-                  *  // JSON.sizes.size[sizes.length -1].source
+                    // *** JSON.sizes.size[sizes.length -1].source
                         var imgMdSizeURL = JSONImgSizes.sizes.size[sizes.length -1].source;
                 }
-              *  // given these two lengths: send small to img tag within container
-              *  // pass larger as div data attribute attached to container
+                // *** given these two lengths: send small to img tag within container
+                // *** pass larger as div data attribute attached to container
             }
                // to do if errors:
                else if (xmlhttp.status == 400) {
