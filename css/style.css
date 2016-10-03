@@ -1,0 +1,149 @@
+@import url(https://fonts.googleapis.com/css?family=Arima+Madurai);
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Arima Madurai', serif, cursive;
+  color: #FFF;
+
+}
+
+a {
+   color: #FFF;
+}
+
+#head {
+  width: 100%;
+  background-color: #000;
+  border-bottom: 1px dashed #FFF;
+  height: 32px;
+  padding-bottom: 32px;
+  position: absolute;
+  text-align: center;
+}
+
+#wrap {
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+  padding-bottom: 32px;
+}
+
+h1.title {
+  display: block;
+  color: #AE8394;
+  text-align: center;
+}
+
+div.title {
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Img Thumbnails */
+#img-thumbnails {
+  height: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.image-box img {
+  width: 100%; 
+  height: 200px; 
+}
+
+.thumbnail {
+  float: left;
+  text-align: center;
+  height: 250px;
+  width: 250px;
+  margin: 0.5em;
+  padding: 0.5em; 
+}
+
+.thumbnail img:hover {
+  transform: scale(1.15);
+  box-shadow: 1px 2px 10px rgba(85, 84, 89, 0.6); 
+}
+
+/* Light Box */
+#ltBoxWrap {
+  position: fixed;
+  background: #000;
+  visibility: hidden; 
+  width: 100%;
+  height: 100%; 
+  color: #FFF;
+}
+
+#lightbox {
+  position:relative;
+  left:50%;
+  top:50%;
+}
+
+#lightbox .navigation {
+  color: #FFF;
+  padding-top: 32px;
+}
+
+/* navigation */
+#prev, #next {
+  float: left;
+}
+
+#close {
+  float: right;
+}
+
+/* small screens */
+@media only screen and (max-width : 720px) {
+
+  .thumbnail {
+    float: left;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin: 0.2em;
+    padding: 0.2em; 
+}
+  
+  #lightbox { 
+    width:150px; 
+    height:200px; 
+    position:relative; 
+    left:50%; top:50%; 
+    margin:-250px 0 0 -190px; 
+  }
+}
+
+/* large screens */
+@media only screen and (min-width : 720px) {
+
+  .thumbnail {
+    float: left;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    margin: 0.6em;
+    padding: 0.5em; 
+  }
+
+   #lightbox { 
+    width:400px; 
+    height:500px; 
+    position:relative; 
+    left:50%; top:50%; 
+    margin:-250px 0 0 -200px; 
+  }
+}
