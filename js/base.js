@@ -43,3 +43,15 @@ function imgView(JSONResponse) {
         createLtBox(images[i]);
     };
 }
+
+function ltBxVisibility() {
+    document.getElementById("ltBoxContainer").style.visibility = "hidden";
+}
+
+function ltBxShowing(APIurl) {
+    var img = imgIDArray[imgIndexPosition];
+    var title = img.title;
+    document.getElementById("ltBoxContainer").style.visibility = "visible";
+    document.getElementById("ltBoxImg").innerHTML = '<img src="' + url + '"/>';
+}
+
