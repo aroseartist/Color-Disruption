@@ -15,37 +15,8 @@
     <link rel="stylesheet" href="css/stylesheet.css" />
     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
     <script type="text/javascript">
-    // globals
-    var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7";
-    var imgIDArray = [];
-    var imgIndexPosition = 0;
 
-    // anon function executes asyncronously once a state change is registered
-    function getRequest(APIurl, JSONResponse) {
-        var xmlhttp = new XMLHttpRequest();
-        // if the state change is a full response of the request
-        xmlhttp.onreadystatechange = function() {
-                // if the state change is a full response of the request
-                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                    // and if no errors:
-                    if (xmlhttp.status == 200) {
-                        // Collect JSON object & parse
-                        var JSONIdResponse = JSON.parse(xmlhttp.responseText);
-                        // push JSON blob objects into thumbnail grid
-                        if (JSONResponse) {
-                            JSONResponse(JSONIdResponse);
-                        }
-                        // to do if errors:
-                        else if (xmlhttp.status == 400) {
-                            alert('Oops!: Error 400');
-                        } else {
-                            alert('Hmm, something other than 200 was returned');
-                        }
-                    };
-                    // feed API response to anan function once recvd
-                    xmlhttp.open("GET", APIGalleryRequest);
-                    xmlhttp.send();
-                }
+
 
                 // request gallery images from Flickr API
                 function createPhotoIDList() {
@@ -113,19 +84,5 @@
             <!-- <img src=""> Input API queries here -->
         </div>
     </section>
-    <div class="island">
-        <div class="js-gallery gallery">
-            <img src="" class="js-gallery__image" />
-            <button class="js-gallery__arrow--left gallery__arrow gallery__arrow--left">
-                <span class="visually-hidden">Previous photo</span>
-            </button>
-            <button class="js-gallery__arrow--right gallery__arrow gallery__arrow--right">
-                <span class="visually-hidden">Next photo</span>
-            </button>
-        </div>
-    </div>
-    <div class="island thumbnails">
-        <ul class="js-thumbnails__list thumbnails__list"></ul>
-        <ol class="js-thumbnails__pager thumbnails__pager"></ol>
-    </div>
+
 </body>
