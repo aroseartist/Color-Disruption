@@ -1,8 +1,26 @@
 
+
+@font-face {
+    src: url(../fonts/ArimaMadurai-Regular.ttf);
+    font-family: 'Arima Madurai', serif, cursive;
+}
+
 body {
-   background-color: #060C10;
-   color: #FFF;
-   font-family: Arial, Calibri, Helvetica, sans-serif;
+    background-color: #060C10;
+    color: #FFF;
+    font-family: 'Arima Madurai', serif, cursive;
+    margin: 0;
+    background-color: white;
+}
+
+html {
+    font-family: 'Arima Madurai', serif, cursive;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+div {
+    font-family: 'Arima Madurai', serif, cursive;
 }
 
 h1 {
