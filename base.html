@@ -14,62 +14,6 @@
 <![endif]-->
     <link rel="stylesheet" href="css/stylesheet.css" />
     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
-    <script type="text/javascript">
-
-
-
-                // request gallery images from Flickr API
-                function createPhotoIDList() {
-                    var xmlhttp = new XMLHttpRequest();
-                    var APIGallryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7"
-                        // anon function executes once a state change is registered (API response)
-                    xmlhttp.onreadystatechange = function() {
-                        // if the state change is a full response of the request
-                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                            // and if no errors:
-                            if (xmlhttp.status == 200) {
-                                // this could be factored into a  function:
-                                // create empty array to hold img ids
-                                var imgIDArray = [];
-                                // parse through JSON rcvd
-                                var JSONIdResponse = JSON.parse(xmlhttp.responseText);
-                                // provides list of photo objects (w ID) from the JSON
-                                var JSONImageArray = JSONIdResponse.photos.photo
-                                    // for each img obj: pull out the ID and add to new array
-                                for (i = 0; i < JSONImageArray.length, i++) {
-                                    var ImgID = JSONImageArray[i].id;
-                                    imgIDArray.push(ImgID);
-                                }
-                                // once data is added to  imgIDArray - execute query for img IDs
-                                imgIDArray.foreach(queryImgURLs);
-                            }
-                            // to do if errors:
-                            else if (xmlhttp.status == 400) {
-                                alert('Oops!: Error 400');
-                            } else {
-                                alert('Hmm, something other than 200 was returned');
-                            }
-                        }
-                    };
-                    // feed API response to anan function once recvd
-                    xmlhttp.open("GET", APIGalleryRequest, true);
-                    xmlhttp.send();
-                }
-
-                function displayLtBox() {
-                    var lightBxBgnd = document.getElementById("ltBoxBgnd");
-                    var lightBx = document.getElementById("ltBox");
-                    lightBxBgnd.style.display = "block";
-                    lightBx.style.display = "block";
-                }
-
-                function closeLtBx() {
-                    var lightBxBgnd = document.getElementById("ltBoxBgnd");
-                    var lightBx = document.getElementById("ltBox");
-                    lightBxBgnd.style.display = "none";
-                    lightBx.style.display = "none";
-                }
-    </script>
 </head>
 
 <body>
@@ -79,8 +23,8 @@
     <section>
         <h1>Disrupting the Monochromatic Paradigm</h1>
         <hr>
-        <div id="ltBoxBgnd" onclick="closeLtBx()"></div>
-        <div id="ltBox">
+        <div id="ltBoxContainer" onclick="closeLtBx()"></div>
+        <div id="ltBoxImg">
             <!-- <img src=""> Input API queries here -->
         </div>
     </section>
