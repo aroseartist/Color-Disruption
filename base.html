@@ -14,98 +14,90 @@
 <![endif]-->
     <link rel="stylesheet" href="css/stylesheet.css" />
     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
-    
     <script type="text/javascript">
-    // anon function executes once a state change is registered (imgIDArray)
-    // for each element in the array
-    function queryImgURLs(element, index, array) {
+    // globals
+    var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7";
+    var imgIDArray = [];
+    var imgIndexPosition = 0;
+
+    // anon function executes asyncronously once a state change is registered
+    function getRequest(APIurl, JSONResponse) {
+        var xmlhttp = new XMLHttpRequest();
         // if the state change is a full response of the request
         xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                // and if no errors:
-                if (xmlhttp.status == 200) {
-                    // parse hmlresponse.text into JSON response
-                    var JSONUrlResponse = JSON.parse(xmlhttp.responseText);
-                    // parse through img size URLs of the JSON rcvd
-                    var JSONImgSizes = JSONUrlResponse.sizes.size
-                    // *** get back JSON
-                    // *** walk through with JSON.sizes which contains an array of 7 objects
-                    // for each img size obj: extract the URL for sm & md
-                    for (i = 0; i < JSONImgSizes.length, i++) {
-                        // *** JSON.sizes.size[0].source
-                        var imgSmSizeURL = JSONImgSizes.sizes.size[0].source;
-                        // *** JSON.sizes.size[sizes.length -1].source
-                        var imgMdSizeURL = JSONImgSizes.sizes.size[sizes.length - 1].source;
-                    }
-                // *** given these two lengths: send small to img tag within container
-                // *** pass larger as div data attribute attached to container
+                // if the state change is a full response of the request
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    // and if no errors:
+                    if (xmlhttp.status == 200) {
+                        // Collect JSON object & parse
+                        var JSONIdResponse = JSON.parse(xmlhttp.responseText);
+                        // push JSON blob objects into thumbnail grid
+                        if (JSONResponse) {
+                            JSONResponse(JSONIdResponse);
+                        }
+                        // to do if errors:
+                        else if (xmlhttp.status == 400) {
+                            alert('Oops!: Error 400');
+                        } else {
+                            alert('Hmm, something other than 200 was returned');
+                        }
+                    };
+                    // feed API response to anan function once recvd
+                    xmlhttp.open("GET", APIGalleryRequest);
+                    xmlhttp.send();
                 }
-                // to do if errors:
-                else if (xmlhttp.status == 400) {
-                    alert('Oops!: Error 400');
-                } else {
-                    alert('Hmm, something other than 200 was returned');
-                }
-            }
-        };
-        // pass each img id to getSize query for img URLs by size
-        APIUrlRequest = "https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=0d41bb353ee154a459eeb3dc97854647&photo_id=" + element + "&format=json&nojsoncallback=1&auth_token=72157671220547264-7321f6da451d24e9&api_sig=b667f15c941763efdc2ccb94115ed55f"
-        // feed API response to parsing function once recvd
-        xmlhttp.open("GET", APIUrlRequest, true);
-        xmlhttp.send();
-    }
 
-    // request gallery images from Flickr API
-    function createPhotoIDList() {
-        var xmlhttp = new XMLHttpRequest();
-        var APIGallryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7"
-        // anon function executes once a state change is registered (API response)
-        xmlhttp.onreadystatechange = function() {
-            // if the state change is a full response of the request
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                // and if no errors:
-                if (xmlhttp.status == 200) {
-                    // this could be factored into a  function:
-                    // create empty array to hold img ids
-                    var imgIDArray = [];
-                    // parse through JSON rcvd
-                    var JSONIdResponse = JSON.parse(xmlhttp.responseText);
-                    // provides list of photo objects (w ID) from the JSON
-                    var JSONImageArray = JSONIdResponse.photos.photo
-                    // for each img obj: pull out the ID and add to new array
-                    for (i = 0; i < JSONImageArray.length, i++) {
-                        var ImgID = JSONImageArray[i].id;
-                        imgIDArray.push(ImgID);
-                    }
-                    // once data is added to  imgIDArray - execute query for img IDs
-                    imgIDArray.foreach(queryImgURLs);
+                // request gallery images from Flickr API
+                function createPhotoIDList() {
+                    var xmlhttp = new XMLHttpRequest();
+                    var APIGallryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7"
+                        // anon function executes once a state change is registered (API response)
+                    xmlhttp.onreadystatechange = function() {
+                        // if the state change is a full response of the request
+                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                            // and if no errors:
+                            if (xmlhttp.status == 200) {
+                                // this could be factored into a  function:
+                                // create empty array to hold img ids
+                                var imgIDArray = [];
+                                // parse through JSON rcvd
+                                var JSONIdResponse = JSON.parse(xmlhttp.responseText);
+                                // provides list of photo objects (w ID) from the JSON
+                                var JSONImageArray = JSONIdResponse.photos.photo
+                                    // for each img obj: pull out the ID and add to new array
+                                for (i = 0; i < JSONImageArray.length, i++) {
+                                    var ImgID = JSONImageArray[i].id;
+                                    imgIDArray.push(ImgID);
+                                }
+                                // once data is added to  imgIDArray - execute query for img IDs
+                                imgIDArray.foreach(queryImgURLs);
+                            }
+                            // to do if errors:
+                            else if (xmlhttp.status == 400) {
+                                alert('Oops!: Error 400');
+                            } else {
+                                alert('Hmm, something other than 200 was returned');
+                            }
+                        }
+                    };
+                    // feed API response to anan function once recvd
+                    xmlhttp.open("GET", APIGalleryRequest, true);
+                    xmlhttp.send();
                 }
-                // to do if errors:
-                else if (xmlhttp.status == 400) {
-                    alert('Oops!: Error 400');
-                } else {
-                    alert('Hmm, something other than 200 was returned');
+
+                function displayLtBox() {
+                    var lightBxBgnd = document.getElementById("ltBoxBgnd");
+                    var lightBx = document.getElementById("ltBox");
+                    lightBxBgnd.style.display = "block";
+                    lightBx.style.display = "block";
                 }
-            }
-        };
-        // feed API response to anan function once recvd
-        xmlhttp.open("GET", APIGalleryRequest, true);
-        xmlhttp.send();
-    }
 
-    function displayLtBox() {
-        var lightBxBgnd = document.getElementById("ltBoxBgnd");
-        var lightBx = document.getElementById("ltBox");
-        lightBxBgnd.style.display = "block";
-        lightBx.style.display = "block";
-    }
-
-    function closeLtBx() {
-        var lightBxBgnd = document.getElementById("ltBoxBgnd");
-        var lightBx = document.getElementById("ltBox");
-        lightBxBgnd.style.display = "none";
-        lightBx.style.display = "none";
-    }
+                function closeLtBx() {
+                    var lightBxBgnd = document.getElementById("ltBoxBgnd");
+                    var lightBx = document.getElementById("ltBox");
+                    lightBxBgnd.style.display = "none";
+                    lightBx.style.display = "none";
+                }
     </script>
 </head>
 
@@ -114,12 +106,26 @@
         <h1>Color Disruption</h1>
     </header>
     <section>
-        <h1>Inspired By Color Disruption</h1>
+        <h1>Disrupting the Monochromatic Paradigm</h1>
         <hr>
         <div id="ltBoxBgnd" onclick="closeLtBx()"></div>
         <div id="ltBox">
             <!-- <img src=""> Input API queries here -->
         </div>
-        <button onclick="displayLtBox()">LightBox</button>
     </section>
+    <div class="island">
+        <div class="js-gallery gallery">
+            <img src="" class="js-gallery__image" />
+            <button class="js-gallery__arrow--left gallery__arrow gallery__arrow--left">
+                <span class="visually-hidden">Previous photo</span>
+            </button>
+            <button class="js-gallery__arrow--right gallery__arrow gallery__arrow--right">
+                <span class="visually-hidden">Next photo</span>
+            </button>
+        </div>
+    </div>
+    <div class="island thumbnails">
+        <ul class="js-thumbnails__list thumbnails__list"></ul>
+        <ol class="js-thumbnails__pager thumbnails__pager"></ol>
+    </div>
 </body>
