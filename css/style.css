@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Arima+Madurai);
+@import
+url(https://fonts.googleapis.com/css?family=Arima+Madurai);
 
 html {
   -ms-text-size-adjust: 100%;
@@ -21,6 +22,8 @@ body {
 a {
    color: #CB2402;
 }
+
+
 
 #head {
   width: 100%;
@@ -52,7 +55,7 @@ a {
 }
 
 .image-box img {
-  width: 50%;
+  width: 45% !important;
   min-width: 30%;
   float: left;
   padding: 10px;
@@ -81,11 +84,12 @@ a {
   visibility: hidden; 
   width: 100%;
   height: 100%; 
+  overflow: auto;
 }
 
 #lightbox {
   position:relative;
-  left:50%;
+  left:45%;
   top:50%;
 }
 
@@ -128,7 +132,7 @@ a {
     width:150px; 
     height:200px; 
     position:relative; 
-    left:50%; top:50%; 
+    left:45%; top:50%; 
     margin:-250px 0 0 -190px; 
   }
   
@@ -150,7 +154,7 @@ a {
     width:400px; 
     height:500px; 
     position:relative; 
-    left:50%; top:50%; 
+    left:45%; top:50%; 
     margin:-250px 0 0 -200px; 
   }
 }
