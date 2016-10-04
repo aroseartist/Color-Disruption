@@ -20,7 +20,8 @@ body {
 }
 
 a {
-   color: #DB2464;
+  color: #DB2464;
+  text-decoration: none;
 }
 
 #wrap {
@@ -39,7 +40,7 @@ a {
   position: absolute;
 }
 
-.title {
+.titlist {
   color: #FFF;
   text-align: center;
   font-size: 48px;
@@ -88,13 +89,20 @@ a {
   box-shadow: 1px 2px 10px #4C49A2; 
 }
 
-div.title {
+#img-title { 
   background-color: black;
   color: #fff; 
   display: inline;
   padding: 0.5rem;
+}
+
+div.title {
+  background-color: #FFF;
+  color: #A31A48;
+  display: inline;
+  margin: 5px;
   text-align: center;
-  font-size: 0.75em;
+  font-size: 32px;
 }
 
 /* Light Box */

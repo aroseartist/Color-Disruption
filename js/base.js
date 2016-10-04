@@ -55,6 +55,7 @@ function hideLtBox() {
 
 //View lightbox when 
 function displayLtBox(url) {
+    var title = img.title;
     document.getElementById("ltBoxWrap").style.visibility = "visible";
     changeLightBoxImage(url);
 }
@@ -65,17 +66,18 @@ function navL(JSONResponse){
         imgIndexPosition --;
         var img = imgIDArray[imgIndexPosition];
         var APIImgUrl = prepareUrl(img);
+        var title = img.title;
         changeLightBoxImage(APIImgUrl);
   }
 }
 
 // Next Image
-
 function navR(JSONResponse) {
     if (imgIndexPosition < imgIDArray.length - 1) {
          imgIndexPosition ++;
          var img = imgIDArray[imgIndexPosition];
          var APIImgUrl = prepareUrl(img);
+         var title = img.title;
          changeLightBoxImage(APIImgUrl);
   }
 }
@@ -89,8 +91,7 @@ function insertImg(photo){
 // Templating Section 
 function buildThumbnailDiv(photo){
     var APIImgUrl  = prepareUrl(photo);
-    var innerBx = '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/>' + '</div></div>';
-
+    var innerBx = '<div class="title">' + photo.title + '</div>' + '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/>' + '</div></div>';
     var newImgDiv = document.createElement("div");
     newImgDiv.setAttribute("class", "thumbnail");
     newImgDiv.setAttribute("onClick", "displayLtBox(\'" + APIImgUrl + "\')");
@@ -98,7 +99,7 @@ function buildThumbnailDiv(photo){
     return newImgDiv;
 }
 
-/* Helper Function */
+/* Helper Functions */
 
 function prepareUrl(imgObject){
     return 'https://farm8.staticflickr.com/' + imgObject.server + '/'+ imgObject.id + '_' + imgObject.secret + '.jpg';
