@@ -12,21 +12,39 @@
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
   </script>
 <![endif]-->
-    <link rel="stylesheet" href="css/stylesheet.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
 </head>
 
 <body>
-    <header class="colorIT">
-        <h1>Color Disruption</h1>
-    </header>
-    <section>
-        <h1>Disrupting the Monochromatic Paradigm</h1>
-        <hr>
-        <div id="ltBoxContainer" onclick="closeLtBx()"></div>
-        <div id="ltBoxImg">
-            <!-- <img src=""> Input API queries here -->
+    <div id="wrap">
+        <div id="head">
+            <h1 class="title">Color Disruption</h1>
         </div>
-    </section>
+        <div id="img-thumbnails"></div>
+    </div>
 
+    <div id="ltBoxWrap">
+        <div id="lightbox">
+            <div class="nav">
+                <div id="prev" onclick="navL()"> Previous </div>
+                <div id="close" onclick="hideLightBox()"> X </div>
+                <div id="next" onclick="nav()"> Next </div>
+            </div>        
+            <div id="lightbox-content">
+                <div class="image" id="ltBoxImg" onclick="imgView()"></div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script src="js/base.js"></script>
+    <script>
+    var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=eb73c503448a28ad12d57f6203268c5a&gallery_id=72157668201916531&format=json&nojsoncallback=1";
+    window.onload = function() {
+        getRequest(APIGalleryRequest, imgView);
+    }
+    </script>
+
+</html>
+
