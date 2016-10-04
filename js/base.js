@@ -1,12 +1,14 @@
-// globals
-var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0d41bb353ee154a459eeb3dc97854647&gallery_id=72157668201916531&format=rest&auth_token=72157671220547264-7321f6da451d24e9&api_sig=ddffc9970a672456b7ac62ce78e1dda7";
+//Globals and origin request
+var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=8eb8da4356796d2c696189ad21f41932&gallery_id=72157668201916531&format=json&nojsoncallback=1&auth_token=72157674671916656-b173885097bbdeab&api_sig=f3192ee08bf78e72b0a8c3bb39493a71";
+//Empty array to fill with image URLs
 var imgIDArray = [];
+//Initial imag URL index for looping & displaying
 var imgIndexPosition = 0;
 
-// anon function executes asyncronously once a state change is registered
+//Anon function executes async once state change is registered
 function getRequest(APIurl, JSONResponse) {
     var xmlhttp = new XMLHttpRequest();
-    // if the state change is a full response of the request
+    //If state change is a full response of the request
     xmlhttp.onreadystatechange = function() {
         // if the state change is a full response of the request
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -16,42 +18,89 @@ function getRequest(APIurl, JSONResponse) {
                 var JSONIdResponse = JSON.parse(xmlhttp.responseText);
                 // push JSON blob objects into thumbnail grid
                 if (JSONResponse) {
-                    JSONResponse(JSONIdResponse)
-                };
-            // to do if errors:
-            else if (xmlhttp.status == 400) {
-                alert('Oops!: Error 400');
-            } else {
+                    JSONResponse(JSONIdResponse);
+                }
+            }
+            else {
                 alert('Hmm, something other than 200 was returned');
             }
         }
         // feed API response to anan function once recvd
-        xmlhttp.open("GET", APIGalleryRequest);
-        xmlhttp.send();
-    }
-};
+    };
+     xmlhttp.open("GET", APIurl);
+     xmlhttp.send();
+}
 
 function imgArrayQuery(galleryJSON) {
-    imgArray = galleryJSON['photos'].photo;
+    imgIDArray = galleryJSON['photos'].photo;
     return galleryJSON['photos'].photo;
-};
+}
 
 function imgView(JSONResponse) {
     var images = imgArrayQuery(JSONResponse);
     for (var i = 0; i < images.length; i++) {
-        addToGrid(images[i]);
+        insertImg(images[i]);
         createLtBox(images[i]);
-    };
+    }
 }
 
-function ltBxVisibility() {
-    document.getElementById("ltBoxContainer").style.visibility = "hidden";
+function hideLtBox() {
+    document.getElementById("ltBoxWrap").style.visibility = "hidden";
 }
 
-function ltBxShowing(APIurl) {
-    var img = imgIDArray[imgIndexPosition];
-    var title = img.title;
-    document.getElementById("ltBoxContainer").style.visibility = "visible";
-    document.getElementById("ltBoxImg").innerHTML = '<img src="' + url + '"/>';
+function displayLtBox(url) {
+    document.getElementById("ltBoxWrap").style.visibility = "visible";
+    changeLightBoxImage(url);
 }
 
+// Previous Image
+function navL(JSONResponse){
+    if (imgIndexPosition > 0){
+        imgIndexPosition --;
+        var img = imgIDArray[imgIndexPosition];
+        var APIImgUrl = prepareUrl(img);
+        changeLightBoxImage(APIImgUrl);
+  }
+}
+
+// Next Image
+
+function navR(JSONResponse) {
+    if (imgIndexPosition < imgIDArray.length - 1) {
+         imgIndexPosition ++;
+         var img = imgIDArray[imgIndexPosition];
+         var APIImgUrl = prepareUrl(img);
+         changeLightBoxImage(APIImgUrl);
+  }
+}
+
+// DOM Manipulation
+function insertImg(photo){
+  var thumbnailDiv = buildThumbnailDiv(photo);
+  document.getElementById('img-thumbnails').appendChild(thumbnailDiv);
+}
+
+// Templating Section 
+function buildThumbnailDiv(photo){
+    var APIImgUrl  = prepareUrl(photo);
+    var innerBx = '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/></div>' + '</div>';
+
+    var newImgDiv = document.createElement("div");
+    newImgDiv.setAttribute("class", "thumbnail");
+    newImgDiv.setAttribute("onClick", "displayLtBox(\'" + APIImgUrl + "\')");
+    newImgDiv.innerHTML = innerBx;
+    return newImgDiv;
+}
+
+function prepareUrl(imgObject){
+    return 'https://farm8.staticflickr.com/' + imgObject.server + '/'+ imgObject.id + '_' + imgObject.secret + '.jpg';
+}
+
+function changeLightBoxImage(imgurl){
+    document.getElementById("ltBoxImg").innerHTML = '<img class="lightboximage"  src="' + imgurl + '"/>';
+}
+
+function createLtBox(photo)  {
+  var APIImgUrl = prepareUrl(photo); 
+  changeLightBoxImage(APIImgUrl);
+ }
