@@ -49,17 +49,18 @@ function imgView(JSONResponse) {
 //Template for thumbnails and lightbox setup
 function buildThumbnailDiv(photo) {
     var APIImgUrl  = prepareUrl(photo);
-    var innerBx = '<div class="title">' + photo.title + '</div>' + '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/>' + '</div></div>';
+    //Define ltbox elements
+    var innerBx = '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/>' + '</div></div>';
     var newImgDiv = document.createElement("div");
     newImgDiv.setAttribute("class", "thumbnail");
-    newImgDiv.setAttribute("onClick", "displayLtBox(\'" + APIImgUrl + "\')");
+    newImgDiv.setAttribute("onClick", "displayLtBox(\'" + APIImgUrl + "\',\'" + photo.title + "\')");
     newImgDiv.innerHTML = innerBx;
     return newImgDiv;
 }
 //Image inserting into the DOM
 function insertImg(photo) {
-  var thumbnailDiv = buildThumbnailDiv(photo);
-  document.getElementById('img-thumbnails').appendChild(thumbnailDiv);
+    var thumbnailDiv = buildThumbnailDiv(photo);
+    document.getElementById('img-thumbnails').appendChild(thumbnailDiv);
 }
 
 /* Lightbox Functions */
@@ -69,43 +70,44 @@ function hideLtBox() {
     document.getElementById("ltBoxWrap").style.visibility = "hidden";
 }
 //View lightbox when state change (click)
-function displayLtBox(url) {
+function displayLtBox(url, title) {
     document.getElementById("ltBoxWrap").style.visibility = "visible";
-    changeLightBoxImage(url);
+    changeLightBoxImage(url, title);
 }
-//Prior Img
+//Prior Img: pass info
 function navL(JSONResponse){
     if (imgIndexPosition > 0) {
         //Step back one index at a time
         imgIndexPosition --;
         var img = imgIDArray[imgIndexPosition];
         var APIImgUrl = prepareUrl(img);
-        changeLightBoxImage(APIImgUrl);
+        changeLightBoxImage(APIImgUrl, img.title);
     }
 }
-//Following Img
+//Following Img: pass info
 function navR(JSONResponse) {
     if (imgIndexPosition < imgIDArray.length - 1) {
          imgIndexPosition ++;
          //Move forward on index at a time
          var img = imgIDArray[imgIndexPosition];
          var APIImgUrl = prepareUrl(img);
-         changeLightBoxImage(APIImgUrl);
+         changeLightBoxImage(APIImgUrl, img.title);
     }
 }
 
 /* Helper Functions */
 
-//Develope img URL to pass along to functions
+//Develop img URL to pass along to functions
 function prepareUrl(imgObject) {
     return 'https://farm8.staticflickr.com/' + imgObject.server + '/'+ imgObject.id + '_' + imgObject.secret + '.jpg';
 }
-//Moving between lightbox images
-function changeLightBoxImage(imgUrl) {
+//Lightbox elements to use for each transition
+function changeLightBoxImage(imgUrl, title) {
     document.getElementById("ltBoxImg").innerHTML = '<img class="lightboximage"  src="' + imgUrl + '"/>';
+    document.getElementById("ltTitle").textContent = title && title.length > 0 ? title: ".....";
 }
 //Instantiate lightbox use
 function createLtBox(photo) {
   var APIImgUrl = prepareUrl(photo); 
-  changeLightBoxImage(APIImgUrl);
+  changeLightBoxImage(APIImgUrl, photo.title);
 }
