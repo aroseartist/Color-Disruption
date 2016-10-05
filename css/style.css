@@ -62,11 +62,13 @@ a {
 
 .image-box img {
   width: 45% !important;
+  height: 400px !important;
   min-width: 30%;
   float: left;
   padding: 10px;
   margin: 6px;
   border: 3px solid #4C49A2;
+  cursor: pointer;
 }
 
 .eachThumbnail {
@@ -83,13 +85,12 @@ a {
   box-shadow: 1px 2px 10px #4C49A2; 
 }
 
-div.title {
+span.imagetitle {
   background-color: #FFF;
   color: #A31A48;
-  display: inline;
+  display: inherit;
   margin: 5px;
-  text-align: center;
-  font-size: 32px;
+  font-size: 26px;
 }
 
 /* Light Box */
@@ -103,82 +104,41 @@ div.title {
 }
 
 #lightbox {
-  position:relative;
-  left:45%;
-  top:50%;
+  width:400px; 
+  height:500px; 
+  position:relative; 
+  left:45%; top:50%; 
+  margin:-250px 0 0 -200px;
 }
 
 #lightbox .nav {
   width: 500px;
+  height: 30px;
+  background: purple;
+  color: white;
+  font-size: 20px;
+  margin-top: 32px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* navigation */
 #prev {
   float: left;
-  margin-left: 0px;
+  margin-left: 5px;
 }
 
 #next {
   margin-left: 110px;
+  float:right;
 }
 
 #close {
   float: right;
-  margin-left: 50px;
+  margin-left: 45px;
+  margin-right: 5px;
 }
 
 .lightboximage{
     width: 500px;
   }
-
-/* small screens */
-@media only screen and (max-width : 720px) {
-
-  .eachThumbnail {
-    float: left;
-    text-align: center;
-    height: 250px;
-    width: 250px;
-    margin: 0.2em;
-    padding: 0.2em; 
-}
-  
-  #lightbox { 
-    width:150px; 
-    height:200px; 
-    position:relative; 
-    left:45%; top:50%; 
-    margin:-250px 0 0 -190px; 
-  }
-
-  div.title {
-    background-color: #FFF;
-    color: #A31A48;
-    display: inline;
-    margin: 5px;
-    text-align: center;
-    font-size: 16px;
-  }
-  
-}
-
-/* large screens */
-@media only screen and (min-width : 720px) {
-
-  .eachThumbnail {
-    float: left;
-    text-align: center;
-    height: 250px;
-    width: 250px;
-    margin: 0.6em;
-    padding: 0.5em; 
-  }
-
-   #lightbox { 
-    width:400px; 
-    height:500px; 
-    position:relative; 
-    left:45%; top:50%; 
-    margin:-250px 0 0 -200px; 
-  }
-}
