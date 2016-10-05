@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="eng">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Color Disruption">
+    <meta name="author" content="Lora Rose">
+    <title>Color Disruption</title>
+    <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+  </script>
+<![endif]-->
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Body et al. -->
+    <div id="wrap">
+        <div id="head" class="titlist">Color Disruption</div>
+        <div id="img-thumbnails"></div>
+        <div id="foot">
+            API &amp; Native Javascript Playground by <a href="http://www.aroseartist.com/resume">Lora Rose</a> | &copy; 2016 | Fork on <a href="https://github.com/aroseartist/Color-Disruption">GitHub</a>
+        </div>
+    </div>
+    <!-- Lightbox -->
+    <div id="ltBoxWrap">
+        <div id="lightbox">
+            <div class="nav">
+                <div id="prev" onclick="navL()"> Previous </div>
+                <div id="close" onclick="hideLtBox()"> X </div>
+                <div id="next" onclick="navR()"> Next </div>
+            </div>        
+            <div id="lightbox-content">
+                <div class="image" id="ltBoxImg" onclick="imgView()"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+    <!-- API query -->
+    <script src="js/base.js"></script>
+    <script>
+    var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=8eb8da4356796d2c696189ad21f41932&gallery_id=72157668201916531&format=json&nojsoncallback=1&auth_token=72157674671916656-b173885097bbdeab&api_sig=f3192ee08bf78e72b0a8c3bb39493a71";
+    window.onload = function() {
+        getRequest(APIGalleryRequest, imgView);
+    }
+    </script>
+
+</html>
+
