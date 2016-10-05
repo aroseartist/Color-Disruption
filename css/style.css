@@ -89,13 +89,6 @@ a {
   box-shadow: 1px 2px 10px #4C49A2; 
 }
 
-#img-title { 
-  background-color: black;
-  color: #fff; 
-  display: inline;
-  padding: 0.5rem;
-}
-
 div.title {
   background-color: #FFF;
   color: #A31A48;
@@ -128,7 +121,7 @@ div.title {
 /* navigation */
 #prev {
   float: left;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 #next {
@@ -162,6 +155,15 @@ div.title {
     position:relative; 
     left:45%; top:50%; 
     margin:-250px 0 0 -190px; 
+  }
+
+  div.title {
+    background-color: #FFF;
+    color: #A31A48;
+    display: inline;
+    margin: 5px;
+    text-align: center;
+    font-size: 16px;
   }
   
 }

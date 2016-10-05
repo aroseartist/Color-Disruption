@@ -5,7 +5,6 @@ var imgIDArray = [];
 //Initial imag URL index for looping & displaying
 var imgIndexPosition = 0;
 
-/*  */
 //Anon function executes async once state change is registered
 function getRequest(APIurl, JSONResponse) {
     var xmlhttp = new XMLHttpRequest();
@@ -22,7 +21,7 @@ function getRequest(APIurl, JSONResponse) {
                     JSONResponse(JSONIdResponse);
                 }
             }
-            //Notice if error
+            //Alert if there's an error
             else {
                 alert('Hmm, something other than 200 was returned');
             }
@@ -32,64 +31,23 @@ function getRequest(APIurl, JSONResponse) {
     xmlhttp.open("GET", APIurl);
     xmlhttp.send();
 }
-
-//Propogate imgs into array for use
 function imgArrayQuery(galleryJSON) {
+    //Append img urls from JSON into array
     imgIDArray = galleryJSON['photos'].photo;
     return galleryJSON['photos'].photo;
 }
-
-//From the array insert offer each indexed obj to following functions
 function imgView(JSONResponse) {
     var images = imgArrayQuery(JSONResponse);
+    //For each img obj pass to thumbnail & ltbx functions for use
     for (var i = 0; i < images.length; i++) {
+        //Thumbnails
         insertImg(images[i]);
+        //Lightbox
         createLtBox(images[i]);
     }
 }
-
-//Set lightbox as hidden until called
-function hideLtBox() {
-    document.getElementById("ltBoxWrap").style.visibility = "hidden";
-}
-
-//View lightbox when 
-function displayLtBox(url) {
-    var title = img.title;
-    document.getElementById("ltBoxWrap").style.visibility = "visible";
-    changeLightBoxImage(url);
-}
-
-// Previous Image
-function navL(JSONResponse){
-    if (imgIndexPosition > 0){
-        imgIndexPosition --;
-        var img = imgIDArray[imgIndexPosition];
-        var APIImgUrl = prepareUrl(img);
-        var title = img.title;
-        changeLightBoxImage(APIImgUrl);
-  }
-}
-
-// Next Image
-function navR(JSONResponse) {
-    if (imgIndexPosition < imgIDArray.length - 1) {
-         imgIndexPosition ++;
-         var img = imgIDArray[imgIndexPosition];
-         var APIImgUrl = prepareUrl(img);
-         var title = img.title;
-         changeLightBoxImage(APIImgUrl);
-  }
-}
-
-// DOM Manipulation
-function insertImg(photo){
-  var thumbnailDiv = buildThumbnailDiv(photo);
-  document.getElementById('img-thumbnails').appendChild(thumbnailDiv);
-}
-
-// Templating Section 
-function buildThumbnailDiv(photo){
+//Template for thumbnails and lightbox setup
+function buildThumbnailDiv(photo) {
     var APIImgUrl  = prepareUrl(photo);
     var innerBx = '<div class="title">' + photo.title + '</div>' + '<div class="image-box">' + '<div class="imageholder"><img src="' + APIImgUrl + '"/>' + '</div></div>';
     var newImgDiv = document.createElement("div");
@@ -98,18 +56,56 @@ function buildThumbnailDiv(photo){
     newImgDiv.innerHTML = innerBx;
     return newImgDiv;
 }
+//Image inserting into the DOM
+function insertImg(photo) {
+  var thumbnailDiv = buildThumbnailDiv(photo);
+  document.getElementById('img-thumbnails').appendChild(thumbnailDiv);
+}
+
+/* Lightbox Functions */
+
+//Set lightbox as hidden until called
+function hideLtBox() {
+    document.getElementById("ltBoxWrap").style.visibility = "hidden";
+}
+//View lightbox when state change (click)
+function displayLtBox(url) {
+    document.getElementById("ltBoxWrap").style.visibility = "visible";
+    changeLightBoxImage(url);
+}
+//Prior Img
+function navL(JSONResponse){
+    if (imgIndexPosition > 0) {
+        //Step back one index at a time
+        imgIndexPosition --;
+        var img = imgIDArray[imgIndexPosition];
+        var APIImgUrl = prepareUrl(img);
+        changeLightBoxImage(APIImgUrl);
+    }
+}
+//Following Img
+function navR(JSONResponse) {
+    if (imgIndexPosition < imgIDArray.length - 1) {
+         imgIndexPosition ++;
+         //Move forward on index at a time
+         var img = imgIDArray[imgIndexPosition];
+         var APIImgUrl = prepareUrl(img);
+         changeLightBoxImage(APIImgUrl);
+    }
+}
 
 /* Helper Functions */
 
-function prepareUrl(imgObject){
+//Develope img URL to pass along to functions
+function prepareUrl(imgObject) {
     return 'https://farm8.staticflickr.com/' + imgObject.server + '/'+ imgObject.id + '_' + imgObject.secret + '.jpg';
 }
-
-function changeLightBoxImage(imgurl){
-    document.getElementById("ltBoxImg").innerHTML = '<img class="lightboximage"  src="' + imgurl + '"/>';
+//Moving between lightbox images
+function changeLightBoxImage(imgUrl) {
+    document.getElementById("ltBoxImg").innerHTML = '<img class="lightboximage"  src="' + imgUrl + '"/>';
 }
-
-function createLtBox(photo)  {
+//Instantiate lightbox use
+function createLtBox(photo) {
   var APIImgUrl = prepareUrl(photo); 
   changeLightBoxImage(APIImgUrl);
- }
+}
