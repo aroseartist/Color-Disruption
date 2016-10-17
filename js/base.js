@@ -1,5 +1,5 @@
 /* Globals + Origin Request */
-var APIGalleryRequest = "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=8eb8da4356796d2c696189ad21f41932&gallery_id=72157668201916531&format=json&nojsoncallback=1&auth_token=72157674671916656-b173885097bbdeab&api_sig=f3192ee08bf78e72b0a8c3bb39493a71";
+var APIGalleryRequest = "ttps://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0fd6ca094319451728cb7efa4eb6479a&gallery_id=72157668201916531&format=rest&auth_token=72157671828081874-9269e0c58c8bfc3b&api_sig=4b5c580a4948e1324dbfeed346c169c3";
 //Empty array to fill with image URLs
 var imgIDArray = [];
 //Initial imag URL index for looping & displaying
