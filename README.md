@@ -23,6 +23,10 @@ Native Javascript & HTML / CSS
 
 I would love to spend time developing tests and adding a search function in order to dynamically change the images. It would also be fun to make the image thumbnails appear in dynamic "Pinterest" style. And of course, adding back elements and desgin for responsiveness.
 
+![Thumbnails](img/color-disrupt.gif)
+
+---
+
 ![Thumbnails](img/color-disrupt01.png)
 
 ![Thumbnails](img/color-disrupt02.png)
