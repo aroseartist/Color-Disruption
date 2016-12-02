@@ -1,7 +1,5 @@
 # Color Disruption
-"One very important difference between color and monochromatic photography is this: in black and white you suggest; in color you state. Much can be implied by suggestion, but statement demands certainty... absolute certainty." ~ Paul Outerbridge*
-
-### [Deployed Here](https://color-disruption.herokuapp.com/)
+*"One very important difference between color and monochromatic photography is this: in black and white you suggest; in color you state. Much can be implied by suggestion, but statement demands certainty... absolute certainty." ~ Paul Outerbridge*
 
 A simple and playful gallery of images queried from the Flickr public API and displayed in thumbnail format as well as a navigational lightbox. 
 
